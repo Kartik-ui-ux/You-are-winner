@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🏆 You Are The Winners</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- Particle Canvas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Name Capture Modal -->
+  <div id="name-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-glow"></div>
+      <div class="trophy-icon">🏆</div>
+      <h2 class="modal-title">Enter the Hall of Champions</h2>
+      <p class="modal-sub">What is your name, Champion?</p>
+      <input type="text" id="visitor-name" placeholder="Your name..." maxlength="40" autocomplete="off"/>
+      <button id="enter-btn" onclick="enterSite()">ENTER THE ARENA</button>
+      <div class="modal-sparkles">✨ ⚡ ✨</div>
+    </div>
+  </div>
+
+  <!-- Main Site -->
+  <div id="main-site" class="hidden">
+
+    <!-- Background orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <!-- Scanline overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-logo">⚔️ CHAMPIONS ARENA</div>
+      <div class="header-date" id="live-date"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero">
+
+      <!-- Floating Crown -->
+      <div class="crown-wrap float-slow">👑</div>
+
+      <!-- Main Message -->
+      <div class="winners-card float-medium">
+        <div class="glitch-border"></div>
+        <div class="card-inner">
+          <p class="pre-title">🔥 CONGRATULATIONS 🔥</p>
+          <h1 class="main-title">
+            <span class="word float-fast" style="--d:0s">YOU</span>
+            <span class="word float-fast" style="--d:0.2s">ARE</span>
+            <span class="word float-fast highlight-word" style="--d:0.4s">THE</span>
+            <br/>
+            <span class="big-word float-fast" style="--d:0.6s">WINNERS</span>
+          </h1>
+          <div class="divider-line"></div>
+          <p class="welcome-msg">Welcome, <span id="display-name" class="champ-name"></span>! 🎖️</p>
+          <p class="sub-msg">You fought hard. You stood tall. You conquered. 🏅</p>
+          <div class="badge-row">
+            <span class="badge">🥇 CHAMPION</span>
+            <span class="badge">⚡ LEGEND</span>
+            <span class="badge">🔥 ELITE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Tags -->
+      <div class="floating-tag tag1 float-slow">Victory 🏆</div>
+      <div class="floating-tag tag2 float-medium">Glory ⚡</div>
+      <div class="floating-tag tag3 float-fast">Triumph 🌟</div>
+      <div class="floating-tag tag4 float-slow">Legend 🔥</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>You were destined for greatness · <span id="visitor-count-display"></span></p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
