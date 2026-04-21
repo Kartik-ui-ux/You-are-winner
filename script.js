@@ -119,40 +119,29 @@ document.getElementById('visitor-name').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') enterSite();
 });
 
-// ---- LOG VISITOR TO SERVER ----
+// ---- PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ----
+const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
+// ---- LOG VISITOR TO GOOGLE SHEETS ----
 async function logVisitor(name) {
+  if (!SHEET_URL || SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+    console.warn('[Winners] Google Sheet URL not set. See setup instructions.');
+    return;
+  }
   try {
-    await fetch('/log-visitor', {
+    // no-cors because Apps Script redirect causes CORS error — data still arrives
+    await fetch(SHEET_URL, {
       method:  'POST',
+      mode:    'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
         name,
         time:  new Date().toISOString(),
-        agent: navigator.userAgent,
+        agent: navigator.userAgent.substring(0, 100),
       }),
     });
   } catch (err) {
-    // Server not running; fall back silently
-    console.warn('[Winners] Visitor log server not reached — falling back to localStorage.');
-    const logs = JSON.parse(localStorage.getItem('winners_visitors') || '[]');
-    logs.push({ name, time: new Date().toISOString() });
-    localStorage.setItem('winners_visitors', JSON.stringify(logs));
+    console.warn('[Winners] Could not reach Google Sheet:', err);
   }
 }
 
-// ---- VISITOR COUNT DISPLAY ----
-async function loadVisitorCount() {
-  try {
-    const res  = await fetch('/visitors');
-    const data = await res.json();
-    const el   = document.getElementById('visitor-count-display');
-    if (el && data.count !== undefined) {
-      el.textContent = `${data.count} champion${data.count !== 1 ? 's' : ''} have visited`;
-    }
-  } catch (_) {
-    const logs = JSON.parse(localStorage.getItem('winners_visitors') || '[]');
-    const el   = document.getElementById('visitor-count-display');
-    if (el && logs.length) el.textContent = `${logs.length} champion${logs.length !== 1 ? 's' : ''} have visited`;
-  }
-}
-loadVisitorCount();
